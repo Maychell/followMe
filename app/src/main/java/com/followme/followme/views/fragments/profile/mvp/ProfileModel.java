@@ -1,4 +1,4 @@
-package com.followme.followme.app.mvp;
+package com.followme.followme.views.fragments.profile.mvp;
 
 import com.followme.followme.app.dagger.module.FollowMeService;
 import com.google.gson.JsonObject;
@@ -9,16 +9,16 @@ import java.util.Map;
 import rx.Observable;
 
 /**
- * Created by maychellfernandesdeoliveira on 03/12/2017.
+ * Created by maychellfernandesdeoliveira on 04/12/2017.
  */
 
-public class FollowMeAppModel {
+public class ProfileModel {
 
     private static final String ID_TOKEN = "id_token";
 
     private final FollowMeService mService;
 
-    public FollowMeAppModel(FollowMeService service) {
+    public ProfileModel(FollowMeService service) {
         mService = service;
     }
 

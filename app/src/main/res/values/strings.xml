@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">FollowMe</string>
     <string name="title_activity_follow_me">Map</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="title_activity_main">MainActivity</string>
 </resources>
