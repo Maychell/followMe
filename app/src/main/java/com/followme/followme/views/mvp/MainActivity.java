@@ -1,70 +1,64 @@
-package com.followme.followme.views.activities.main.mvp;
+package com.followme.followme.views.mvp;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.followme.followme.R;
 import com.followme.followme.views.fragments.FollowMeMapFragment;
 import com.followme.followme.views.fragments.profile.ProfileFragment;
-import com.jakewharton.rxbinding.view.RxView;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
+import butterknife.OnClick;
 
-/**
- * Created by maychellfernandesdeoliveira on 03/12/2017.
- */
-
-public class MainView extends FrameLayout {
-
-    @BindView(R.id.btn_home)    ImageView btnHome;
-    @BindView(R.id.btn_friends) ImageView btnFriends;
-    @BindView(R.id.btn_profile) ImageView btnProfile;
+public class MainActivity extends FragmentActivity implements MainInterface {
 
     private FollowMeMapFragment mMapFragment = new FollowMeMapFragment();
     private ProfileFragment mProfileFragment = new ProfileFragment();
 
-    public MainView(FragmentActivity activity) {
-        super(activity);
-        inflate(getContext(), R.layout.activity_main, this);
+    private MainPresenter mPresenter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        activity.getSupportFragmentManager()
+        getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.content_fragment, mMapFragment).commit();
+
+        mPresenter = new MainPresenter(this);
     }
 
-    public Observable<Void> observeHomeButton() {
-        return RxView.clicks(btnHome);
-    }
+    @OnClick(R.id.btn_home)
+    public void onBtnHomeClick() { mPresenter.clickBtnHome(); }
 
-    public Observable<Void> observeFriendsButton() {
-        return RxView.clicks(btnFriends);
-    }
+    @OnClick(R.id.btn_friends)
+    public void onBtnFriendsClick() { mPresenter.clickBtnFriends(); }
 
-    public Observable<Void> observeProfileButton() {
-        return RxView.clicks(btnProfile);
-    }
+    @OnClick(R.id.btn_profile)
+    public void onBtnProfileClick() { mPresenter.clickBtnProfile(); }
 
+    @Override
     public void renderHomeFragment() {
         updateFragmentView(mMapFragment);
     }
 
+    @Override
     public void renderFriendsFragment() {
         updateFragmentView(mProfileFragment);
     }
 
+    @Override
     public void renderProfileFragment() {
         updateFragmentView(mProfileFragment);
     }
 
     private void updateFragmentView(Fragment fragment) {
-        FragmentManager fragmentManager = ((FragmentActivity) getContext()).getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         fragmentTransaction.replace(R.id.content_fragment, fragment);

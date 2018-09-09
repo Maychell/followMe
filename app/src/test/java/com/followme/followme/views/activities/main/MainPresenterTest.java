@@ -1,7 +1,7 @@
 package com.followme.followme.views.activities.main;
 
 import com.followme.followme.views.activities.main.mvp.MainPresenter;
-import com.followme.followme.views.activities.mvp.MainView;
+import com.followme.followme.views.activities.main.mvp.MainView;
 
 import org.junit.After;
 import org.junit.Before;

@@ -1,6 +1,5 @@
 package com.followme.followme.views.activities.main;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -11,17 +10,10 @@ import com.followme.followme.views.activities.main.mvp.MainView;
 
 import javax.inject.Inject;
 
-@SuppressLint("Registered")
 public class MainActivity extends FragmentActivity {
 
     @Inject MainView mView;
     @Inject MainPresenter mPresenter;
-
-    @Override
-    protected void onDestroy() {
-        mPresenter.detachView();
-        super.onDestroy();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +25,11 @@ public class MainActivity extends FragmentActivity {
 
         setContentView(mView);
         mPresenter.attachView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mPresenter.detachView();
+        super.onDestroy();
     }
 }
